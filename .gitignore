@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Production
+build/
+dist/
+
+# Test
+coverage/
+playwright-report/
+test-results/
+.vitest/
+
+# Storybook
+storybook-static/
+
+# Local env (real secrets are committed never)
+.env
+.env.local
+.env.*.local
+
+# Paraglide compiled messages
+src/paraglide/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+
+# TypeScript build cache
+*.tsbuildinfo
