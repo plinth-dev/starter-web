@@ -1,59 +1,129 @@
 # Plinth — Web module starter
 
-> **Status: not yet released — Phase C in progress.**
-> The repo exists; the SDK packages it will import are still being designed in [`sdk-ts`](https://github.com/plinth-dev/sdk-ts) (Phase B). The "Quick start" and "What v0.1.0 ships with" sections below describe the **target shape**, not what you'd clone today. Track progress at [plinth.run](https://plinth.run) and on the [roadmap](https://github.com/plinth-dev/.github/blob/main/ROADMAP.md).
+A clone-ready [Next.js 16](https://nextjs.org) module that pre-wires every `@plinth-dev/*` package into a working app. One sample resource (`items`) shipped end-to-end so the integration of every SDK is visible.
 
-A clone-ready [Next.js 16](https://nextjs.org) module starter that imports `@plinth-dev/*` packages. Authentication, authorization, audit, observability, error boundaries, and security headers — all pre-wired.
+Pre-wired:
+- **Validated env** via `@plinth-dev/env` (Zod, fail-fast at module load).
+- **Server-side API client** via `@plinth-dev/api-client` (server-only fetch wrapper, never throws).
+- **Authorization** via `@plinth-dev/authz` (server) + `@plinth-dev/authz-react` (client) — batched `permissionMap` once per route, `<Can>` gates on the client.
+- **Forms** via `@plinth-dev/forms` (`<FormWrapper>` + `<FormField>` + `useFormContext`, with Next.js adapter wiring).
+- **Tables** via `@plinth-dev/tables` (`<ServerTable>` reading URL state via `next/navigation`).
+- **Browser OTel** via `@plinth-dev/otel-web` (fetch + document-load auto-instrumented; trace propagation to the API).
+- **Security headers** in `next.config.ts` (CSP, HSTS, X-Frame-Options, etc.).
+- **Error boundaries** at the App Router level.
 
-## Quick start (target — Phase C)
+See [plinth.run](https://plinth.run) for the SDK design rationale.
+
+## Quick start
+
+Requirements: Node 20+, pnpm 9+, [`starter-api`](https://github.com/plinth-dev/starter-api) running locally on `:8080`.
 
 ```bash
+# Clone and rename for your module.
 git clone https://github.com/plinth-dev/starter-web my-module
 cd my-module
 pnpm install
+
+# Copy env template and edit if needed.
+cp .env.example .env.local
+
+# Start the dev server.
 pnpm dev          # http://localhost:3000
 ```
 
-For everything-running-locally:
+Open <http://localhost:3000>, hit "Sign in as alice" to set the dev cookie, then walk through the items list, create / edit forms, and detail page.
 
-```bash
-docker compose up --build      # Postgres, Cerbos, NATS, SigNoz, the module
+## Layout
+
+```
+.
+├── instrumentation-client.ts    # @plinth-dev/otel-web init (browser)
+├── next.config.ts               # standalone output + security headers
+├── postcss.config.mjs           # Tailwind v4
+├── biome.json                   # lint + format
+├── public/
+└── src/
+    ├── app/
+    │   ├── layout.tsx           # imports lib/forms.server.ts to wire adapters
+    │   ├── globals.css          # Tailwind + plinth-table / plinth-form styles
+    │   ├── page.tsx             # home — sign-in shortcuts
+    │   ├── error.tsx
+    │   ├── not-found.tsx
+    │   ├── sign-in/page.tsx     # dev-only cookie-set
+    │   ├── sign-out/page.tsx
+    │   └── items/
+    │       ├── page.tsx         # ServerTable + parseTableSearchParams
+    │       ├── new/page.tsx     # FormWrapper + FormField (create)
+    │       ├── [id]/
+    │       │   ├── page.tsx     # PermissionsProvider + Can
+    │       │   └── edit/page.tsx
+    │       ├── actions.ts       # createAction (createItem, updateItem, deleteItem)
+    │       ├── columns.tsx
+    │       └── types.ts
+    └── lib/
+        ├── env.ts               # @plinth-dev/env — validated server env
+        ├── auth.ts              # dev cookie reader (replace before prod)
+        ├── api-client.ts        # @plinth-dev/api-client — registered + auth header
+        ├── authz.ts              # itemPermissionMap helper
+        └── forms.server.ts      # wires forms adapters to next/cache + next/navigation
 ```
 
-## What v0.1.0 ships with (target)
+## How the layers fit
 
-- **Next.js 16** with App Router, Turbopack, standalone Docker output, React 19 server components.
-- **Three-layer route group**: `app/(module)/layout.tsx` does `requireAuth` + batched `checkPermissions` + `<PermissionsProvider>` wrap.
-- **Error boundaries**: `app/error.tsx`, `app/global-error.tsx`, `app/not-found.tsx`.
-- **Security headers** in `next.config.ts`: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy.
-- **i18n** via `paraglide-js` (compile-time message keys).
-- **Forms** via `@plinth-dev/forms` (server actions + Zod).
-- **Tables** via `@plinth-dev/tables` (TanStack + nuqs URL state).
-- **Tests**: Vitest unit tests, Playwright E2E, Storybook visual review.
-- **Lint + format**: Biome 2.
+```
+Server Component (e.g. /items/[id])
+    │
+    ├─ requireAuth()  ──► reads cookie → User { id, roles, token }
+    │
+    ├─ itemsApi().get(...)  ─►  starter-api over HTTP
+    │       (Authorization: Bearer <userid>:<roles>)
+    │
+    └─ itemPermissionMap(user, id)  ─►  Cerbos PDP (gRPC)
+              │
+              └─ pass result to <PermissionsProvider> in JSX
+                       │
+                       └─ <Can action="update">…</Can>  (client)
+```
 
-## What v0.1.0 will NOT ship with
+## Auth: the starter shim
 
-This is a starter, not a kitchen sink. Things you'll bring yourself:
+`src/lib/auth.ts` reads a dev cookie `plinth_dev_user`, formatted as `<userid>:<role1>,<role2>`. The same value is forwarded as `Authorization: Bearer ...` to `starter-api`, which understands the same format. **This is for local development only**.
 
-- Domain logic (one canonical example resource — `Items` — will be included; delete it).
-- Brand styling (Tailwind v4 + shadcn/ui primitives ship vendored; restyle freely).
-- Specific integrations (no Slack, Stripe, etc).
+Replace with your project's real auth before production. Drop-in candidates: [Auth0](https://auth0.com), [Clerk](https://clerk.com), [Stack](https://stack-auth.com), homegrown OIDC. The contract is `User { id, roles, token }` from `getCurrentUser`/`requireAuth` — keep that shape and the rest of the app continues to work unchanged.
 
 ## Customisation checklist
 
-After cloning, search the repo for `// TODO: Customize for your module` and walk each one. Then update:
+After cloning:
 
 1. `package.json` — `name`, `description`, `repository`.
-2. `next.config.ts` — production hostnames in `images.remotePatterns` and CSP.
-3. `app/(module)/layout.tsx` — module name in metadata.
-4. `cerbos/*.yaml` — replace `Item` with your resource kind.
+2. `src/lib/env.ts` — your env keys; never read `process.env.X` directly elsewhere.
+3. `src/lib/auth.ts` — replace the dev cookie reader with real auth.
+4. `src/app/items/` — rename / extend for your resource(s).
+5. `next.config.ts` — production CSP `connect-src` for any external APIs you call.
+6. `src/app/globals.css` — restyle to your brand.
+
+## Production hardening
+
+The starter is *clone-ready*, not *production-ready out of the box*. Before deploying:
+
+- Replace the auth shim (above).
+- Set strict CSP `connect-src` to your API origin only.
+- Set `NEXT_PUBLIC_OTEL_EXPORTER_ENDPOINT` to your collector (the default is empty).
+- Ensure `API_BASE_URL` points at your real API; rotate any hard-coded URLs.
+- The starter writes session cookies with `secure` only when `NODE_ENV=production` — that's deliberate but verify it before shipping.
+
+## Compatibility
+
+- **Next.js 16+**.
+- **Node 20+**.
+- **React 19+**.
+- **Tailwind CSS v4** (using the `@tailwindcss/postcss` plugin).
 
 ## Related
 
 - [`starter-api`](https://github.com/plinth-dev/starter-api) — the matching Go backend.
 - [`sdk-ts`](https://github.com/plinth-dev/sdk-ts) — the SDK packages this starter imports.
-- [`cli`](https://github.com/plinth-dev/cli) — `plinth new` automates the rename + register flow.
+- [`platform`](https://github.com/plinth-dev/platform) — the Kubernetes Helm chart for the surrounding stack.
 
 ## License
 

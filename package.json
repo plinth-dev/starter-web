@@ -1,0 +1,44 @@
+{
+  "name": "starter-web",
+  "version": "0.1.0-dev",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src",
+    "lint:fix": "biome check --write src",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@plinth-dev/api-client": "0.1.0-pre",
+    "@plinth-dev/authz": "0.1.0-pre",
+    "@plinth-dev/authz-react": "0.1.0-pre",
+    "@plinth-dev/env": "0.1.0-pre",
+    "@plinth-dev/forms": "0.1.0-pre",
+    "@plinth-dev/otel-web": "0.1.0-pre",
+    "@plinth-dev/tables": "0.1.0-pre",
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "postcss": "^8.4.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
