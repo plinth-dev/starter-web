@@ -4,6 +4,10 @@ import { getCurrentUser } from "@/lib/auth";
 
 export default async function Home() {
   const user = await getCurrentUser();
+  // Dev-only impersonation shortcuts — never rendered in production.
+  // Real deployments replace this whole shell anyway, but the
+  // explicit gate is defence-in-depth.
+  const showDevShortcuts = process.env.NODE_ENV !== "production";
   return (
     <div className="space-y-6">
       <header className="space-y-2">
@@ -36,21 +40,25 @@ export default async function Home() {
       <section className="space-y-3">
         <h2 className="text-xl font-semibold">Try it</h2>
         <ul className="space-y-2 list-disc pl-5">
-          <li>
-            <Link href="/sign-in?as=alice:editor" className="underline">
-              Sign in as alice (editor)
-            </Link>
-          </li>
-          <li>
-            <Link href="/sign-in?as=bob:viewer" className="underline">
-              Sign in as bob (viewer)
-            </Link>
-          </li>
-          <li>
-            <Link href="/sign-out" className="underline">
-              Sign out
-            </Link>
-          </li>
+          {showDevShortcuts && (
+            <>
+              <li>
+                <Link href="/sign-in?as=alice:editor" className="underline">
+                  Sign in as alice (editor)
+                </Link>
+              </li>
+              <li>
+                <Link href="/sign-in?as=bob:viewer" className="underline">
+                  Sign in as bob (viewer)
+                </Link>
+              </li>
+              <li>
+                <Link href="/sign-out" className="underline">
+                  Sign out
+                </Link>
+              </li>
+            </>
+          )}
           <li>
             <Link href="/items" className="underline">
               Items list (table demo)

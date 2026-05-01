@@ -95,19 +95,22 @@ Replace with your project's real auth before production. Drop-in candidates: [Au
 
 After cloning:
 
-1. `package.json` — `name`, `description`, `repository`.
-2. `src/lib/env.ts` — your env keys; never read `process.env.X` directly elsewhere.
-3. `src/lib/auth.ts` — replace the dev cookie reader with real auth.
-4. `src/app/items/` — rename / extend for your resource(s).
-5. `next.config.ts` — production CSP `connect-src` for any external APIs you call.
-6. `src/app/globals.css` — restyle to your brand.
+1. **`cp .env.example .env.local`** and edit. The Quick Start mentions this; calling it out in the checklist too.
+2. `package.json` — `name`, `description`, `repository`.
+3. `src/lib/env.ts` — your env keys; never read `process.env.X` directly elsewhere.
+4. `src/lib/auth.ts` — replace the dev cookie reader with real auth.
+5. **Delete the dev-auth shortcuts:** `src/app/sign-in/`, `src/app/sign-out/`, and the `<Link href="/sign-in?as=...">` block in `src/app/page.tsx`. These are gated to non-production builds as defence-in-depth, but the cleanest move is to remove them when you wire real auth.
+6. `src/app/items/` — rename / extend for your resource(s).
+7. `next.config.ts` — production CSP `connect-src`. **Important:** the default `connect-src 'self'` will block fetches to your `API_BASE_URL` the moment it's not same-origin (and the default `localhost:8080` is cross-origin in any non-localhost deploy). Add your API origin (and OTel collector, if used) here.
+8. `src/app/globals.css` — restyle to your brand.
 
 ## Production hardening
 
 The starter is *clone-ready*, not *production-ready out of the box*. Before deploying:
 
-- Replace the auth shim (above).
-- Set strict CSP `connect-src` to your API origin only.
+- **Remove the dev-auth shortcuts.** `/sign-in?as=<userid>:<roles>` mints an impersonation cookie for any caller — it has no CSRF protection. The route returns 404 in production builds (see `src/app/sign-in/page.tsx`), but treat that as defence-in-depth and *delete the directory entirely* when you replace the auth shim.
+- Replace the auth shim wholesale (`src/lib/auth.ts`).
+- **CSP `connect-src`:** the default `'self'` will block your client-side calls the moment `API_BASE_URL` is not same-origin. Add your API host (and OTel collector, if used) to `next.config.ts`.
 - Set `NEXT_PUBLIC_OTEL_EXPORTER_ENDPOINT` to your collector (the default is empty).
 - Ensure `API_BASE_URL` points at your real API; rotate any hard-coded URLs.
 - The starter writes session cookies with `secure` only when `NODE_ENV=production` — that's deliberate but verify it before shipping.

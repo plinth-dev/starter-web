@@ -14,13 +14,13 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@plinth-dev/api-client": "0.1.0-pre",
+    "@plinth-dev/api-client": "0.1.1-pre",
     "@plinth-dev/authz": "0.1.0-pre",
     "@plinth-dev/authz-react": "0.1.1-pre",
     "@plinth-dev/env": "0.1.0-pre",
     "@plinth-dev/forms": "0.1.1-pre",
     "@plinth-dev/otel-web": "0.1.0-pre",
-    "@plinth-dev/tables": "0.1.1-pre",
+    "@plinth-dev/tables": "0.1.2-pre",
     "next": "^16.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
