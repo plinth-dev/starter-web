@@ -9,26 +9,26 @@ importers:
   .:
     dependencies:
       '@plinth-dev/api-client':
-        specifier: 0.1.1-pre
-        version: 0.1.1-pre
+        specifier: 0.1.0
+        version: 0.1.0
       '@plinth-dev/authz':
-        specifier: 0.1.0-pre
-        version: 0.1.0-pre(@bufbuild/protobuf@2.12.0)(@cerbos/api@0.6.0)
+        specifier: 0.1.0
+        version: 0.1.0(@bufbuild/protobuf@2.12.0)(@cerbos/api@0.6.0)
       '@plinth-dev/authz-react':
-        specifier: 0.1.1-pre
-        version: 0.1.1-pre(react@19.2.5)
+        specifier: 0.1.0
+        version: 0.1.0(react@19.2.5)
       '@plinth-dev/env':
-        specifier: 0.1.0-pre
-        version: 0.1.0-pre(zod@4.4.1)
+        specifier: 0.1.0
+        version: 0.1.0(zod@4.4.1)
       '@plinth-dev/forms':
-        specifier: 0.1.1-pre
-        version: 0.1.1-pre(react@19.2.5)(zod@4.4.1)
+        specifier: 0.1.0
+        version: 0.1.0(react@19.2.5)(zod@4.4.1)
       '@plinth-dev/otel-web':
-        specifier: 0.1.0-pre
-        version: 0.1.0-pre(react@19.2.5)
+        specifier: 0.1.0
+        version: 0.1.0(react@19.2.5)
       '@plinth-dev/tables':
-        specifier: 0.1.2-pre
-        version: 0.1.2-pre(next@16.2.4(@opentelemetry/api@1.9.1)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: 0.1.0
+        version: 0.1.0(next@16.2.4(@opentelemetry/api@1.9.1)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       next:
         specifier: ^16.0.0
         version: 16.2.4(@opentelemetry/api@1.9.1)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -646,41 +646,41 @@ packages:
     resolution: {integrity: sha512-cifvXDhcqMwwTlTK04GBNeIe7yyo28Mfby85QXFe1Yk8nmi36Ab/5UQwptOx84SsoGNRg+EVSjwzfSZMy6pmlw==}
     engines: {node: '>=14'}
 
-  '@plinth-dev/api-client@0.1.1-pre':
-    resolution: {integrity: sha512-kMUFaBMOMSzExHeTTFX23utDQFi7HoYj1sHF4gPhzznL8gp0StWyCabLhdzggF2+xnPgrVF8J+Ry85RIQ2sy3A==}
+  '@plinth-dev/api-client@0.1.0':
+    resolution: {integrity: sha512-jv9tVtkCB01rYYZ33bmG0U/Io5IfhW9ft7y0xS/MZW3hM4brBwFtLLmcQTLamLz4/CaROPPiS5PmlQcXicBYrg==}
     engines: {node: '>=20'}
 
-  '@plinth-dev/authz-react@0.1.1-pre':
-    resolution: {integrity: sha512-1X8DXdCsI/pVC+Q3Q3UAIwCl1rXlHWc08e3Icc/BqwK3ibSuPOxcmWE6e5zMavOvXWIn9y0pfToiz6giQWXctw==}
+  '@plinth-dev/authz-react@0.1.0':
+    resolution: {integrity: sha512-MyUj40JWsnHcXDRk/JPbmkLbDq7UYCL8Q4qIoVXL2k7FIQq/akbQApbDg8k5SAp80aVKta7NlCH7UXK/7NPKGA==}
     engines: {node: '>=20'}
     peerDependencies:
       react: ^19.0.0
 
-  '@plinth-dev/authz@0.1.0-pre':
-    resolution: {integrity: sha512-i4zWmulxTSeQK+5GfmrvPOhcr+hdKVp5zOt/Zhn1BnDwuAjlymYwLW9GQS5rXC3+v/V0Xqu8DldhDR55cEnSyQ==}
+  '@plinth-dev/authz@0.1.0':
+    resolution: {integrity: sha512-iKZsSxSsHaXj4PTykTc9AbKI+LwFmSXopizHAlgY8BI6hWjT0w9mOw4GIiBddORXJmUqVTeCWX/x35EYR4v5fQ==}
     engines: {node: '>=20'}
 
-  '@plinth-dev/env@0.1.0-pre':
-    resolution: {integrity: sha512-ufoQCfi+JqTzn5hGayerYQCxBS1HJIwV/uHK2amD/BXqXWon3RxnMJq/iPT+csgw1p+ZgqlzBCb8JK/CvW8OEw==}
+  '@plinth-dev/env@0.1.0':
+    resolution: {integrity: sha512-MQ4yyyk3KYtnCj8Nv1ftGGoczyBzTV73tH6tYiHarjmoQtHCwihPi4ArPQxko1hRt84kDyfxZtId31li9p9y4w==}
     engines: {node: '>=20'}
     peerDependencies:
       zod: ^4.0.0
 
-  '@plinth-dev/forms@0.1.1-pre':
-    resolution: {integrity: sha512-S2DZr0p+30WkaiqRX7E+T1vA6j4C+nUCGdwTam/uC6EHC6w81Ufoc+vSPuONAc9IO1uN2s9MapWplmt6FCJdIg==}
+  '@plinth-dev/forms@0.1.0':
+    resolution: {integrity: sha512-i4Wvv/ytEApD/bLFSvs0LGB0TSCaxpB67tELiql0IiblCFwvdHdb2IVBjijZ6KAXwhxD3myCV4fiiYzCXY4i9g==}
     engines: {node: '>=20'}
     peerDependencies:
       react: ^19.0.0
       zod: ^4.0.0
 
-  '@plinth-dev/otel-web@0.1.0-pre':
-    resolution: {integrity: sha512-KMJoqEBEoG8Z7cTxUaY1ouLzo/E+OJrz3MXv2bpkoJIXLAnuGzBOhiim1wzvtNxdS/lgYgcppldttk5+eGKSkQ==}
+  '@plinth-dev/otel-web@0.1.0':
+    resolution: {integrity: sha512-AtEmWFyuywDt9Ujrw6hafhkksXirvmDyADnNoTZGLGr+J4wUe7UYlxN1VSTJfdjMZEYUX+mVHyiTp9gx6EdyBg==}
     engines: {node: '>=20'}
     peerDependencies:
       react: ^19.0.0
 
-  '@plinth-dev/tables@0.1.2-pre':
-    resolution: {integrity: sha512-ZrLMZ63mLIig02S36kXPINZtM7sQEseWzZByOiyV6ew034SfzYok6QYVS0MmtETKbE30WljBpEgbRitgbUrQPQ==}
+  '@plinth-dev/tables@0.1.0':
+    resolution: {integrity: sha512-cA2B1wzTd52g1cKVwgN0fm6vZtMbqJ4o6V1EYvLT9NaVnb4hFu7Uy9aZUYz0lZtweQ9z7IvI8oY3j6lpY1NBXQ==}
     engines: {node: '>=20'}
     peerDependencies:
       next: ^15.0.0 || ^16.0.0
@@ -1926,15 +1926,15 @@ snapshots:
 
   '@opentelemetry/semantic-conventions@1.40.0': {}
 
-  '@plinth-dev/api-client@0.1.1-pre':
+  '@plinth-dev/api-client@0.1.0':
     dependencies:
       server-only: 0.0.1
 
-  '@plinth-dev/authz-react@0.1.1-pre(react@19.2.5)':
+  '@plinth-dev/authz-react@0.1.0(react@19.2.5)':
     dependencies:
       react: 19.2.5
 
-  '@plinth-dev/authz@0.1.0-pre(@bufbuild/protobuf@2.12.0)(@cerbos/api@0.6.0)':
+  '@plinth-dev/authz@0.1.0(@bufbuild/protobuf@2.12.0)(@cerbos/api@0.6.0)':
     dependencies:
       '@cerbos/grpc': 0.26.0(@bufbuild/protobuf@2.12.0)(@cerbos/api@0.6.0)
       server-only: 0.0.1
@@ -1942,16 +1942,16 @@ snapshots:
       - '@bufbuild/protobuf'
       - '@cerbos/api'
 
-  '@plinth-dev/env@0.1.0-pre(zod@4.4.1)':
+  '@plinth-dev/env@0.1.0(zod@4.4.1)':
     dependencies:
       zod: 4.4.1
 
-  '@plinth-dev/forms@0.1.1-pre(react@19.2.5)(zod@4.4.1)':
+  '@plinth-dev/forms@0.1.0(react@19.2.5)(zod@4.4.1)':
     dependencies:
       react: 19.2.5
       zod: 4.4.1
 
-  '@plinth-dev/otel-web@0.1.0-pre(react@19.2.5)':
+  '@plinth-dev/otel-web@0.1.0(react@19.2.5)':
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/context-zone': 2.7.1(@opentelemetry/api@1.9.1)
@@ -1968,7 +1968,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@plinth-dev/tables@0.1.2-pre(next@16.2.4(@opentelemetry/api@1.9.1)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@plinth-dev/tables@0.1.0(next@16.2.4(@opentelemetry/api@1.9.1)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
       '@tanstack/react-table': 8.21.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       next: 16.2.4(@opentelemetry/api@1.9.1)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
