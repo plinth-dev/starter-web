@@ -23,10 +23,13 @@ export const env = createEnv({
     // Cerbos PDP — same address as starter-api uses; the web tier may run
     // its own permissionMap calls or proxy through the API.
     CERBOS_ADDRESS: z.string().default("localhost:3593"),
+    // Apply the default before .transform so the input still parses as
+    // a string. .default() after .transform expects a boolean default,
+    // which would skip the transform entirely.
     CERBOS_TLS: z
       .string()
-      .transform((v) => v === "true" || v === "1")
-      .default("false"),
+      .default("false")
+      .transform((v) => v === "true" || v === "1"),
 
     // OTel collector endpoint for the *server* runtime. The browser OTel
     // uses NEXT_PUBLIC_OTEL_EXPORTER_ENDPOINT below.

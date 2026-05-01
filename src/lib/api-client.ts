@@ -2,8 +2,8 @@ import "server-only";
 
 import { api, register } from "@plinth-dev/api-client";
 
-import { getCurrentUser } from "./auth.js";
-import { env } from "./env.js";
+import { getCurrentUser } from "./auth";
+import { env } from "./env";
 
 /**
  * Register the "items-api" client at module load. Auth header is

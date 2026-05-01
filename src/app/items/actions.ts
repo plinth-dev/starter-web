@@ -3,9 +3,9 @@
 import { createAction } from "@plinth-dev/forms/server";
 import { z } from "zod";
 
-import { itemsApi } from "@/lib/api-client.js";
+import { itemsApi } from "@/lib/api-client";
 
-import type { Item } from "./types.js";
+import type { Item } from "./types";
 
 const itemSchema = z.object({
   name: z.string().min(1).max(120),

@@ -2,11 +2,11 @@ import { Can, PermissionsProvider } from "@plinth-dev/authz-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { itemsApi } from "@/lib/api-client.js";
-import { requireAuth } from "@/lib/auth.js";
-import { itemPermissionMap } from "@/lib/authz.js";
+import { itemsApi } from "@/lib/api-client";
+import { requireAuth } from "@/lib/auth";
+import { itemPermissionMap } from "@/lib/authz";
 
-import type { Item } from "../types.js";
+import type { Item } from "../types";
 
 export default async function ItemDetail({ params }: { params: Promise<{ id: string }> }) {
   const user = await requireAuth();

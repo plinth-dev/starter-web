@@ -1,11 +1,11 @@
 import { FormField, FormWrapper } from "@plinth-dev/forms/client";
 import { notFound } from "next/navigation";
 
-import { itemsApi } from "@/lib/api-client.js";
-import { requireAuth } from "@/lib/auth.js";
+import { itemsApi } from "@/lib/api-client";
+import { requireAuth } from "@/lib/auth";
 
-import { updateItem } from "../../actions.js";
-import type { Item } from "../../types.js";
+import { updateItem } from "../../actions";
+import type { Item } from "../../types";
 
 export default async function EditItem({ params }: { params: Promise<{ id: string }> }) {
   await requireAuth();

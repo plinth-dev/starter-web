@@ -10,7 +10,7 @@ import {
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { getCurrentUser } from "./auth.js";
+import { getCurrentUser } from "./auth";
 
 /**
  * Wire `@plinth-dev/forms` to Next.js's primitives. Imported once from
@@ -36,5 +36,10 @@ setTraceIdFunc(() => {
 });
 
 setRevalidateFunc(revalidatePath);
-setRevalidateTagFunc(revalidateTag);
+// Next.js 16's revalidateTag requires a cache lifetime profile as a
+// second argument; pass "default" through the wrapper so the forms
+// adapter contract `(tag: string) => void` still holds.
+setRevalidateTagFunc((tag) => {
+  revalidateTag(tag, "default");
+});
 setRedirectFunc(redirect);

@@ -5,7 +5,7 @@ import "./globals.css";
 // Wire the forms adapters once at process boot. This file's side
 // effects register revalidate / redirect / authContext functions used
 // by every server action created via `@plinth-dev/forms/server`.
-import "@/lib/forms.server.js";
+import "@/lib/forms.server";
 
 export const metadata: Metadata = {
   title: "Plinth — Web starter",

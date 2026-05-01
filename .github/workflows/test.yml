@@ -9,14 +9,8 @@ on:
 permissions:
   contents: read
 
-# NOTE: Full CI (install / typecheck / build) is gated on the
-# @plinth-dev/* SDK packages being published at 0.1.0-pre+. Until then,
-# this workflow just runs Biome's syntactic lint, which doesn't need
-# dependencies installed. After the first SDK publish, replace this
-# with the install/lint/typecheck/build pipeline (see git history).
-
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -26,7 +20,14 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: "20"
-      - name: Install Biome only
-        run: pnpm add -D -w @biomejs/biome@^2.4.0 || npx --yes @biomejs/biome@2.4.0 --version
-      - name: Lint with Biome
-        run: npx --yes @biomejs/biome@2.4.0 check src
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Build
+        run: pnpm build
+        env:
+          API_BASE_URL: http://localhost:8080

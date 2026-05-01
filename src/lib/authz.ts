@@ -1,8 +1,8 @@
 import "server-only";
 
 import { getClient } from "@plinth-dev/authz";
-import type { User } from "./auth.js";
-import { env } from "./env.js";
+import type { User } from "./auth";
+import { env } from "./env";
 
 // First call reads CERBOS_ADDRESS / CERBOS_TLS / NODE_ENV; cached
 // afterwards. authz.getClient() picks these up from process.env, so
@@ -27,6 +27,6 @@ export async function itemPermissionMap(
       auxData: { jwt: user.token },
     },
     { kind: "Item", id: itemId },
-    actions,
+    [...actions],
   );
 }

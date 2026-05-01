@@ -2,11 +2,11 @@ import { ServerTable } from "@plinth-dev/tables";
 import { parseTableSearchParams } from "@plinth-dev/tables/server";
 import Link from "next/link";
 
-import { itemsApi } from "@/lib/api-client.js";
-import { requireAuth } from "@/lib/auth.js";
+import { itemsApi } from "@/lib/api-client";
+import { requireAuth } from "@/lib/auth";
 
-import { columns } from "./columns.js";
-import type { Item } from "./types.js";
+import { columns } from "./columns";
+import type { Item } from "./types";
 
 interface PaginatedItems {
   items: Item[];

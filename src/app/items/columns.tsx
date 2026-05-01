@@ -3,7 +3,7 @@
 import type { ColumnDef } from "@plinth-dev/tables";
 import Link from "next/link";
 
-import type { Item } from "./types.js";
+import type { Item } from "./types";
 
 export const columns: ColumnDef<Item>[] = [
   {

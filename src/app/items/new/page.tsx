@@ -1,8 +1,8 @@
 import { FormField, FormWrapper } from "@plinth-dev/forms/client";
 
-import { requireAuth } from "@/lib/auth.js";
+import { requireAuth } from "@/lib/auth";
 
-import { createItem } from "../actions.js";
+import { createItem } from "../actions";
 
 export default async function NewItem() {
   await requireAuth();

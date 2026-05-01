@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { getCurrentUser } from "@/lib/auth.js";
+import { getCurrentUser } from "@/lib/auth";
 
 export default async function Home() {
   const user = await getCurrentUser();
